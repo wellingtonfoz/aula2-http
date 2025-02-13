@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import app.entity.Carro;
 import app.service.CarroService;
 
-
 @RestController
 @RequestMapping("/api/carro")
 public class CarroController {
@@ -37,6 +36,8 @@ public class CarroController {
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			//deu erro... deu problema
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
 
