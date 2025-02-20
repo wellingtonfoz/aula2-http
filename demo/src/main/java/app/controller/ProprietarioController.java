@@ -15,26 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.dto.RequestFilterDateTimeDTO;
-import app.entity.Carro;
-import app.service.CarroService;
+import app.entity.Proprietario;
+import app.service.ProprietarioService;
 
 @RestController
-@RequestMapping("/api/carro")
-public class CarroController {
+@RequestMapping("/api/proprietario")
+public class ProprietarioController {
 
 
 
 	@Autowired
-	private CarroService carroService;
+	private ProprietarioService proprietarioService;
 
 
 
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Carro carro){
+	public ResponseEntity<String> save(@RequestBody Proprietario proprietario){
 		try {
 			//quando tudo tiver lindo e der certo
-			String mensagem = this.carroService.save(carro);
+			String mensagem = this.proprietarioService.save(proprietario);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
 
 		} catch (Exception e) {
@@ -47,11 +46,11 @@ public class CarroController {
 	}
 
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Carro> findById(@PathVariable long id){
+	public ResponseEntity<Proprietario> findById(@PathVariable long id){
 		try {
 			//quando tudo tiver lindo e der certo
-			Carro carro = this.carroService.findById(id);
-			return new ResponseEntity<>(carro, HttpStatus.OK );
+			Proprietario proprietario = this.proprietarioService.findById(id);
+			return new ResponseEntity<>(proprietario, HttpStatus.OK );
 
 		} catch (Exception e) {
 			//deu erro... deu problema
@@ -62,10 +61,10 @@ public class CarroController {
 
 
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Carro>> findAll(){
+	public ResponseEntity<List<Proprietario>> findAll(){
 
 		try {
-			List<Carro> lista = this.carroService.findAll();
+			List<Proprietario> lista = this.proprietarioService.findAll();
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			//deu erro... deu problema
@@ -76,10 +75,10 @@ public class CarroController {
 
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Carro carro, @PathVariable long id){
+	public ResponseEntity<String> update(@RequestBody Proprietario proprietario, @PathVariable long id){
 		try {
 
-			String mensagem = this.carroService.update(carro, id);
+			String mensagem = this.proprietarioService.update(proprietario, id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -93,7 +92,7 @@ public class CarroController {
 	public ResponseEntity<String> delete(@PathVariable long id){
 		try {
 			//quando tudo tiver lindo e der certo
-			String mensagem = this.carroService.delete(id);
+			String mensagem = this.proprietarioService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK );
 
 		} catch (Exception e) {
@@ -103,45 +102,6 @@ public class CarroController {
 		}
 	}
 
-
-	@GetMapping("/findByNome")
-	public ResponseEntity<List<Carro>> findByNome(@RequestParam String nome){
-		try {
-			return new ResponseEntity<>(this.carroService.findByNome(nome), HttpStatus.OK);
-		} catch (Exception e) {
-			//deu erro... deu problema
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
-
-		}
-	}
-
-	@GetMapping("/findByAnoBetween")
-	public ResponseEntity<List<Carro>> findByAnoBetween(@RequestParam int ano1,
-			@RequestParam int ano2){
-		try {
-			return new ResponseEntity<>(this.carroService.findByAnoBetween(ano1,ano2), HttpStatus.OK);
-		} catch (Exception e) {
-			//deu erro... deu problema
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
-
-		}
-	}
-
-	@PostMapping("/findByDataHoraBetween")
-	public ResponseEntity<List<Carro>> findByDataHoraBetween(@RequestBody RequestFilterDateTimeDTO request){
-		try {
-			List<Carro> lista = this.carroService.findByDataHoraBetween(
-					request.getDataHora1(),
-					request.getDataHora2());
-			return new ResponseEntity<>(lista, HttpStatus.OK);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			//deu erro... deu problema
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
-
-		}
-	}
 
 
 

@@ -20,6 +20,8 @@ public class Proprietario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String nome;
-	
+	private String cpf;
+	private int idade;
+	private boolean menorIdade;
 
 }
